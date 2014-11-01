@@ -2,21 +2,37 @@
  * Created by Steph on 10/30/2014.
  */
 
-var fs = require('fs');
-var list;
-var array = Array;
-var output;
-fs.readdir(process.argv[2], function(err, list){
-    if (err) throw err;
-    list=list.toString();
-    array = list.split('\n');
-    for(var i=0; i<array.length; i++){
-        var str = array[i].toString();
-        var check = process.argv[3].toString();
-        if (str.contains(check)){
-            console.log(str);
-        }
-    }
-});
-//file = file.toString();
+var http = require('http')
+var url = require('url')
 
+function parsetime(time){
+  return{
+    hour: time.getHours(),
+    minute: time.getMinutes(),
+    second: time.getSeconds()
+  }
+}
+
+function unixtime(time){
+  return {unixtime: time.getTime()}
+}
+
+var server = http.createServer(function(req, res){
+  var parsedUrl = url.parse(req.url, true)
+  var time = new Date(parsedUrl.query.iso)
+  var result
+
+  if(/^\/api\/parsetime/.test(req.url))
+    result = parsetime(time)
+  else if(/^\/api\/unixtime/.test(req.url))
+    result = unixtime(time)
+
+  if(result){
+    res.writeHead(200, {'Content-Type': 'application/json'})
+    res.end(JSON.stringify(result))
+  } else{
+    res.writeHead(404)
+    res.end()
+  }
+})
+server.listen(Number(process.argv[2]))
