@@ -8,12 +8,12 @@
 </head>
 <body>
     <h1 style="text-align: center">FRCGS HelperJS Control Panel</h1>
-    <p>Event</p>
-    <input id="event"/>
-    <p style="text-align: left">Match #</p>
     <form action="">
-    <input id="match"/>
-    <button>Submit</button>
+    <p>Event</p>
+    <input type="text" id="event"/>
+    <p style="text-align: left">Match #</p>
+    <input type="text" id="match"/>
+    <input type="submit" value="Submit">
     </form>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -22,9 +22,6 @@
             socket.emit('event', $('#event').val());
             socket.emit('match', $('#match').val());
             return false;
-        });
-        socket.on('event', function(msg){
-            console.log($('#event').text(msg));
         });
     </script>
 </body>

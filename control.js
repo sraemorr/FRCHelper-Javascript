@@ -44,7 +44,7 @@ server = http.createServer(function(req, res){
             break;
         default: send404(res);
     }
-}),
+})
 
     send404 = function(res){
         res.writeHead(404);
@@ -61,12 +61,20 @@ var io = require('socket.io').listen(server);
 // define interactions with client
 io.sockets.on('connection', function(socket){
     //send data to client
-    setInterval(function(){
-        socket.emit('date', {'date': new Date()});
-    }, 1000);
+
+    socket.on('event', function(msg){
+        io.emit('event', msg);
+        console.log(msg);
+    });
+
+    socket.on('match', function(msg){
+        io.emit('match', msg);
+        console.log(msg);
+    });
 
     //recieve client data
     socket.on('client_data', function(data){
-        process.stdout.write(data.letter);
+        //process.stdout.write(data.letter);
     });
 });
+

@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 </head>
 <body>
+<p id="messages">test</p>
 <script>
     var socket = io.connect();
 
@@ -18,8 +19,9 @@
             socket.emit('client_data', {'letter': String.fromCharCode(e.charCode)});
         });
     });
+    socket.on('event', function(msg){
+        $('#messages').append($(msg));
+    });
 </script>
-<div id="date"></div>
-<textarea id="text"></textarea>
 </body>
 </html>
