@@ -1,0 +1,9 @@
+{
+  "name": "frcgs-helperjs",
+  "version": "0.0.1",
+  "description": "A test application to demonstrate the possibilities for live api integration at FRC events.",
+  "dependencies": {
+    "express": "^4.10.1",
+    "socket.io": "^1.2.0"
+  }
+}
