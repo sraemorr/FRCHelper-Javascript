@@ -18,9 +18,10 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         var socket = io.connect();
+
         $('form').submit(function(){
-            socket.emit('event', $('#event').val());
-            socket.emit('match', $('#match').val());
+            var data = {'event': $('#event').val(), 'match': $('#match').val()};
+            socket.emit('submit', data);
             return false;
         });
     </script>

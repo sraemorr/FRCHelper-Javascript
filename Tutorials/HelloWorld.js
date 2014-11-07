@@ -35,4 +35,4 @@ var server = http.createServer(function(req, res){
     res.end()
   }
 })
-server.listen(Number(process.argv[2]))
+server.listen(3000);

@@ -5,23 +5,19 @@
     <title>Socket.io Test</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/plugins/CSSPlugin.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/easing/EasePack.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenLite.min.js"></script>
 </head>
 <body>
-<p id="messages">test</p>
+<p id="rankings">Test text is here Test text is here Test text is here Test text</p>
 <script>
     var socket = io.connect();
 
-    socket.on('date', function(data){
-        $('#date').text(data.date);
-    });
-    $(document).ready(function(){
-        $('#text').keypress(function(e){
-            socket.emit('client_data', {'letter': String.fromCharCode(e.charCode)});
-        });
-    });
-    socket.on('event', function(msg){
-        $('#messages').append($(msg));
-    });
+    socket.on('rankings', function(msg){
+        document.getElementById("rankings").innerHTML = msg;
+    })
 </script>
+<script>TweenLite.to("#rankings", 1.5, {ease:Power2.easeInOut});</script>
 </body>
 </html>

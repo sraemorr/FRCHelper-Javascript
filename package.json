@@ -4,6 +4,7 @@
   "description": "A test application to demonstrate the possibilities for live api integration at FRC events.",
   "dependencies": {
     "express": "^4.10.1",
+    "request": "^2.47.0",
     "socket.io": "^1.2.0"
   }
 }
