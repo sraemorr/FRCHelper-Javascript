@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>FRCGS-HelperJS Control Panel</title>
+    <style></style>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1 style="text-align: center">FRCGS HelperJS Control Panel</h1>
+    <form action="">
+    <p>Event</p>
+    <input type="text" id="event"/>
+    <p style="text-align: left">Match #</p>
+    <input type="text" id="match"/>
+    <input type="submit" value="Submit">
+    </form>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var socket = io.connect();
+
+        $('form').submit(function(){
+            var data = {'event': $('#event').val(), 'match': $('#match').val()};
+            socket.emit('submit', data);
+            return false;
+        });
+    </script>
+</body>
+</html>
