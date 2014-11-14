@@ -3,4 +3,3 @@
  */
 
 //var rankings = document.getElementById("rankings");
-TweenLite.to("#rankings", 1.5, {ease:Power2.easeInOut});

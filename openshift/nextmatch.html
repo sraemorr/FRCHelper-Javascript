@@ -10,13 +10,29 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenLite.min.js"></script>
 </head>
 <body>
+<p id="match"></p>
+<p id="Red1"></p>
+<p id="Red2"></p>
+<p id="Red3"></p>
+<p id="Blue1"></p>
+<p id="Blue2"></p>
+<p id="Blue3"></p>
 <marquee id="rankings"></marquee>
 <script>
     var socket = io.connect();
-
-    socket.on('rankings', function(msg){
-        document.getElementById("rankings").innerHTML = msg;
-    })
+    var matchnum = 0;
+    var prettymatch = [];
+    socket.on('rankings', function(data){
+        document.getElementById("rankings").innerHTML = data;
+    });
+    socket.on('match', function(data){
+       matchnum = data;
+    });
+    socket.on('matchJSON', function(data){
+        prettymatch = JSON.stringify(data);
+        prettymatch = JSON.parse(prettymatch);
+       document.getElementById("match").innerHTML = prettymatch.Matches[matchnum-1].description;
+    });
 </script>
 <script>TweenLite.to("#rankings", 1.5, {ease:Power2.easeInOut});</script>
 </body>
