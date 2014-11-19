@@ -8,7 +8,7 @@
     "socket.io": "^1.2.0"
   },
   "scripts": {
-    "start": "node control.js"
+    "start": "node control.js --websocket-port=$OPENSHIFT_NODEJS_PORT --log-level=1"
   },
   "main": "control.js"
 }

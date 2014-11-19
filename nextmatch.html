@@ -2,22 +2,55 @@
 <!doctype html>
 <html>
 <head>
-    <title>Socket.io Test</title>
-    <script src="/socket.io/socket.io.js"></script>
+    <title>HelperJS NextMatch Test</title>
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/nextmatch.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/plugins/CSSPlugin.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/easing/EasePack.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenLite.min.js"></script>
+    <script src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+    <script src="public/javascripts/nextmatch.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
+<h1 id="match">Qualification #6</h1>
+
+<div class="redTeams">
+    <p id="Red1">Red 1</p>
+    <p class="record">Record: ##-##-##</p>
+    <p class="assists">Assists: ####</p>
+    <p id="Red2">Red 2</p>
+    <p class="record">Record: ##-##-##</p>
+    <p class="assists">Assists: ####</p>
+    <p id="Red3">Red 3</p>
+    <p class="record">Record: ##-##-##</p>
+    <p class="assists">Assists: ####</p>
+</div>
+<div class="blueTeams">
+    <p id="Blue1">Blue 1</p>
+    <p class="record">Record: ##-##-##</p>
+    <p class="assists">Assists: ####</p>
+    <p id="Blue2">Blue 2</p>
+    <p class="record">Record: ##-##-##</p>
+    <p class="assists">Assists: ####</p>
+    <p id="Blue3">Blue 3</p>
+    <p class="record">Record: ##-##-##</p>
+    <p class="assists">Assists: ####</p>
+</div>
 <marquee id="rankings"></marquee>
+
 <script>
     var socket = io.connect();
-
-    socket.on('rankings', function(msg){
-        document.getElementById("rankings").innerHTML = msg;
-    })
+    var matchnum = 0;
+    var prettymatch = [];
+    socket.on('rankings', function(data){
+        document.getElementById("rankings").innerHTML = data;
+    });
+    socket.on('match', function(data){
+       matchnum = data;
+    });
+    socket.on('matchJSON', function(data){
+        prettymatch = JSON.stringify(data);
+        prettymatch = JSON.parse(prettymatch);
+       document.getElementById("match").innerHTML = prettymatch.Matches[matchnum-1].description;
+    });
 </script>
-<script>TweenLite.to("#rankings", 1.5, {ease:Power2.easeInOut});</script>
 </body>
 </html>
